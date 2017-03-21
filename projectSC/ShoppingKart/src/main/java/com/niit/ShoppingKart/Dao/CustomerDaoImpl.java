@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.niit.ShoppingKart.Model.Category;
 import com.niit.ShoppingKart.Model.Customer;
 
 @Repository
@@ -43,11 +42,40 @@ private SessionFactory sessionFactory;
 
 	@Transactional
 	public void update(Customer customer) {
-		int customerId = customer.getId();
+		
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
 	    session.saveOrUpdate(customer);
 		
+	}
+
+	@Transactional
+	public Customer get(String username) {
+		String hql = "from Customer where username ='"+ username +"'";
+		org.hibernate.Query query = sessionFactory.getCurrentSession().createQuery(hql);
+		@SuppressWarnings("unchecked")
+		List<Customer> listCustomer = (List<Customer>) query.list();
+		
+		if (listCustomer != null && !listCustomer.isEmpty()){
+			return listCustomer.get(0);
+		}
+		return null;
+	}
+
+	@Override
+	public boolean CustomerAlreadyExist(String email, boolean b) {
+		
+		String hql = "from Customer where email ='"+ email +"'";
+				
+					
+		org.hibernate.Query query = sessionFactory.getCurrentSession().createQuery(hql);
+		@SuppressWarnings("unchecked")
+		List<Customer> list = (List<Customer>) query.list();
+		if (list != null && !list.isEmpty()) {
+			return true;
+		}
+		return false;
+
 	}
 
 }

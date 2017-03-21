@@ -32,5 +32,11 @@ private CategoryDao categoryDao;
 		// TODO Auto-generated method stub
 		
 	}
+	@Transactional
+	public void delete(int id) {
+		categoryDao.delete(id);
+		// TODO Auto-generated method stub
+		
+	}
 
 }

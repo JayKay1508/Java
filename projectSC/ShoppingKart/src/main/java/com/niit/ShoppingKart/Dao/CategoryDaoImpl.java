@@ -18,6 +18,7 @@ public class CategoryDaoImpl implements CategoryDao {
 @Autowired
 private SessionFactory sessionFactory;
 
+@SuppressWarnings("unchecked")
 @Transactional
 public List<Category> getCategories() {
 	Session session=sessionFactory.openSession();
@@ -40,10 +41,23 @@ return category;
 }
 @Transactional
 public void update(Category category) {
-	int categoryId = category.getId();
+	
 	// TODO Auto-generated method stub
 	Session session = sessionFactory.getCurrentSession();
     session.saveOrUpdate(category);
+}
+@Transactional
+public void delete(int id) {
+	
+	Session session = sessionFactory.openSession();
+	// Make the object persistent[read the data from the table and add it to
+	// session]
+	Category category = (Category) session.get(Category.class, id);
+	session.delete(category);
+	session.flush();
+	session.close();
+	// TODO Auto-generated method stub
+	
 }
 
 }

@@ -29,4 +29,16 @@ public class CustomerServiceImpl implements CustomerService{
 		
 	}
 
+	@Transactional
+	public Customer get(String username) {
+		// TODO Auto-generated method stub
+		return customerDao.get(username);
+	}
+
+	@Transactional
+	public boolean CustomerAlreadyExist(String email, boolean b) {
+		// TODO Auto-generated method stub
+		return customerDao.CustomerAlreadyExist(email, b);
+	}
+
 }
