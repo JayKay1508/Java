@@ -62,7 +62,7 @@ private SessionFactory sessionFactory;
 		return null;
 	}
 
-	@Override
+	@Transactional
 	public boolean CustomerAlreadyExist(String email, boolean b) {
 		
 		String hql = "from Customer where email ='"+ email +"'";

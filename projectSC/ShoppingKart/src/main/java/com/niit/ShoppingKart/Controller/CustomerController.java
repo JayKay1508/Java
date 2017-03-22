@@ -57,7 +57,7 @@ public class CustomerController {
 		
 		
 		if(customerService.CustomerAlreadyExist(email, true)){
-			model.addAttribute("message", "Your Email id Already registered");
+			model.addAttribute("message", "Email is already registered");
 			
 		}
 		else{

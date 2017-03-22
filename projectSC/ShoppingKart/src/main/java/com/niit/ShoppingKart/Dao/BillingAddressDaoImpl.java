@@ -48,7 +48,7 @@ public class BillingAddressDaoImpl implements BillingAddressDao{
 		
 	}
 
-	@Override
+	@Transactional
 	public void delete(int billingid) {
 		// TODO Auto-generated method stub
 		

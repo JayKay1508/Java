@@ -32,7 +32,9 @@ public class HomeController {
 	}
 	
 	@RequestMapping("/home")
-	public String home(){
+	public String home(Model model){
+		List<Product> productList = productService.list();
+		model.addAttribute("productList",productList);
 		return "home";
 	}
 	@RequestMapping("/")
@@ -64,14 +66,6 @@ public class HomeController {
 	
 	
 		
-		@RequestMapping("/success")
-		public String spage(){
-			return "success";
-		}
-		@RequestMapping("/sidebar")
-		public String sidepage(){
-			return "sidebar";
-		}
 		@RequestMapping("/loginpage")
 		public ModelAndView loginPage(@RequestParam(value = "error", required = false) String error, 
 				@RequestParam(value = "logout", required = false) String logout, Model model){

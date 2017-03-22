@@ -47,6 +47,15 @@ public class ProductController {
 		
 	}
 	
+	
+	@RequestMapping("/listOfProducts")
+	public String lop(Model model){
+		
+		List<Product> productList = productService.list();
+		model.addAttribute("productList",productList);
+		return "productlist";
+	}
+	
 	@RequestMapping("/viewProduct")
 	public ModelAndView productview() {
 		

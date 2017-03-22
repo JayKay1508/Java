@@ -34,9 +34,9 @@ public class CartController {
 	@Autowired
 	private CustomerService customerService;
 	
-	@RequestMapping("/myCart/{username}")
-	public String Cart(@PathVariable ("username") String username,  Model model){
-		
+	@RequestMapping("/myCart")
+	public String Cart(Principal p,  Model model){
+		String username = p.getName();
 		List<Cart> cartList = cartService.list(username);
 		model.addAttribute("cartList", cartList);
 		return "myCart";
@@ -50,6 +50,19 @@ public class CartController {
 		model.addAttribute("product", product);
 		return "users";	  
 	 }
+	@RequestMapping("deletecart/{cartId}")
+	public String deletecart(@PathVariable ("cartId") int cartId){
+	
+		Cart crt=cartService.get(cartId);
+		Product product=productService.get(crt.getProductId());
+		int qty=product.getQuantity()+crt.getQuantity();
+		
+		product.setQuantity(qty);
+		productService.update(product);
+		cartService.delete(cartId);
+		return "redirect:/myCart";
+	}
+	
 	@RequestMapping(value="/addtocart/{pid}" , method = RequestMethod.PUT)
 	@ResponseStatus(value = HttpStatus.NO_CONTENT)
 	public void addtocart(@PathVariable("pid") int pid,Principal pr, Model model){
@@ -102,7 +115,12 @@ public class CartController {
 		
 		 
 	}
-
+	@RequestMapping("/order/{user_name}")
+	public String placeorder(@PathVariable("user_name") String user_name){
+		
+		return "redirect:/checkout?user_name"+user_name;
+		
+	}
 	
 
 }
